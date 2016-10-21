@@ -1,8 +1,9 @@
 package ru.rustam
 
 import akka.actor.Actor
-import spray.routing.HttpService
-
+import spray.routing.{RequestContext, HttpService}
+import org.json4s.jackson.Serialization.read
+import org.json4s._
 import scala.concurrent.ExecutionContext
 import scala.util.{Failure, Success}
 
@@ -18,11 +19,16 @@ class BaseApiActor extends Actor with MyService {
 }
 
 trait MyService extends HttpService {
+
+
+
   implicit val execContext: ExecutionContext
   val route = path("sendStat") {
     post {
       ctx => {
-        val body = ctx.request.entity.asString
+//        val body = ctx.request.entity.asString
+        implicit val formats = DefaultFormats
+        val body = read[WotData](ctx.request.entity.asString)
         Db.con.sendQuery(s"INSERT INTO stat (json) VALUES ('$body');").onComplete {
           case Success(res) =>
             ctx.complete(s"Got $body and saved to db.")
