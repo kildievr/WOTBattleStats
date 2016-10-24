@@ -1,5 +1,8 @@
 package ru.rustam
 
+
+import org.joda.time.format.DateTimeFormat
+
 /**
   * Created by Rustam on 21.10.2016.
   */
@@ -24,7 +27,7 @@ case class WotData(
                val pierced: Int,
                val vehicle: String,
                val battleTier: Int,
-               val battleTime: String,
+               val battleTime: Long,
                val battleType: Int,
                val originalXP: Int,
                val playerName: String,
@@ -33,3 +36,8 @@ case class WotData(
                val playerAccount: String
              )
 { }
+
+object WotData{
+
+  def apply( battleTime: String): Long = DateTimeFormat.forPattern("dd.MM.YYYY HH:mm:ss").parseDateTime(battleTime).getMillis()/1000
+}
