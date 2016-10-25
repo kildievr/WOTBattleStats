@@ -27,7 +27,7 @@ case class WotData(
                val pierced: Int,
                val vehicle: String,
                val battleTier: Int,
-               val battleTime: Long,
+               val battleTime: String,
                val battleType: Int,
                val originalXP: Int,
                val playerName: String,
@@ -35,9 +35,7 @@ case class WotData(
                val assistTrack: Int,
                val playerAccount: String
              )
-{ }
-
-object WotData{
-
-  def apply( battleTime: String): Long = DateTimeFormat.forPattern("dd.MM.YYYY HH:mm:ss").parseDateTime(battleTime).getMillis()/1000
+{
+  lazy val epochTime = DateTimeFormat.forPattern("dd.MM.YYYY HH:mm:ss").parseDateTime(battleTime).getMillis()/1000
 }
+
