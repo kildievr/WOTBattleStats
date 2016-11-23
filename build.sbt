@@ -5,15 +5,23 @@ version := "1.0"
 scalaVersion := "2.11.8"
 
 libraryDependencies ++= {
-  val sprayV = "1.3.3"
+  val akkaV = "2.4.14"
+  val akkaHttpV = "10.0.0"
+  val log4jV = "2.7"
   Seq(
-    "io.spray" %% "spray-can" % sprayV,
-    "io.spray" %% "spray-routing" % sprayV,
-    "io.spray" %% "spray-testkit" % sprayV % "test",
-    "org.specs2" %% "specs2-core" % "2.5" % "test",
-    "com.typesafe.akka" %% "akka-actor" % "2.4.2",
-    "com.github.mauricio" %% "postgresql-async" % "0.2.19",
-    "org.json4s" %% "json4s-jackson" % "3.3.0"
+    "org.scalatest" %% "scalatest" % "3.0.1" % "test",
+    "com.typesafe.akka" %% "akka-actor" % akkaV,
+    "com.typesafe.akka" %% "akka-stream" % akkaV,
+    "com.github.mauricio" %% "postgresql-async" % "0.2.20",
+    "org.json4s" %% "json4s-jackson" % "3.5.0",
+    "com.typesafe.akka" %% "akka-http" % akkaHttpV,
+    "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpV % "test",
+    "org.log4s" %% "log4s" % "1.3.3",
+    "org.apache.logging.log4j" % "log4j-slf4j-impl" % log4jV,
+    "org.apache.logging.log4j" % "log4j-core" % log4jV,
+    "org.apache.logging.log4j" % "log4j-api" % log4jV,
+    "com.lmax" % "disruptor" % "3.3.6",
+    "com.typesafe.akka" %% "akka-slf4j" % akkaV
   )
 }
 

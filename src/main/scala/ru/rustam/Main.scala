@@ -1,10 +1,9 @@
 package ru.rustam
 
-import akka.actor.{ActorSystem, Props}
-import akka.io.IO
-import akka.pattern.ask
+import akka.actor.ActorSystem
+import akka.http.scaladsl.Http
+import akka.stream.ActorMaterializer
 import akka.util.Timeout
-import spray.can.Http
 
 import scala.concurrent.duration._
 import scala.language.postfixOps
@@ -12,9 +11,10 @@ import scala.language.postfixOps
 /**
   * Created by Rustam on 25.03.2016.
   */
-object Main extends App {
-  implicit val system = ActorSystem("wot-battle-stats-actor-system")
-  val baseApiActor = system.actorOf(Props[BaseApiActor], "base-api-actor")
-  implicit val timeout = Timeout(5 seconds)
-  IO(Http) ? Http.Bind(baseApiActor, interface = "0.0.0.0", port = 9000)
+object Main extends App with Service {
+  implicit val system       = ActorSystem("wot-battle-stats-actor-system")
+  implicit val timeout      = Timeout(5 seconds)
+  implicit val materializer = ActorMaterializer()
+  Http().bindAndHandle(route, "0.0.0.0", 9000)
+
 }
