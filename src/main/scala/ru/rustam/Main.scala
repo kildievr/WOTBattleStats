@@ -43,6 +43,6 @@ object Spark {
   def select[T <: Iterable[(String, Any)]](kv: T) = {
     var query = table.select("sale_date", "shop_id", "product_id", "price", "product_count", "category_id", "vendor_id")
     kv.foreach(kv => query = query.where(kv._1, kv._2))
-    query.repartitionByCassandraReplica("Schema.schema", "sales")
+    query.repartitionByCassandraReplica(Schema.schema, "sales")
   }
 }
